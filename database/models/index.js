@@ -5,10 +5,18 @@ const Sequelize = require('sequelize')
 const basename = path.basename(__filename)
 const env = process.env.NODE_ENV || 'development'
 // eslint-disable-next-line import/no-dynamic-require
-const config = require(`${__dirname}/../../config/database.js`)[env]
+const config = require('../../config/database')[env]
 const db = {}
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+let sequelize = null
+
+if (dbMode === 'replica') {
+    const dbConf = config[`${env}_${dbMode}`]
+    sequelize = new Sequelize(dbConf.database, null, null, dbConf)
+} else {
+    const dbConf = config[`${env}`]
+    sequelize = new Sequelize(dbConf.database, dbConf.username, dbConf.password, dbConf)
+}
 
 fs.readdirSync(__dirname)
     .filter(file => file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js')
