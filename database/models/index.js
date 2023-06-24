@@ -5,14 +5,14 @@ const Sequelize = require('sequelize')
 const basename = path.basename(__filename)
 const env = process.env.NODE_ENV || 'development'
 // eslint-disable-next-line import/no-dynamic-require
-const config = require('../../config/database')[env]
+const config = require('../../config/database')
 const db = {}
 const dbMode = process.env.DB_MODE || 'replica';
 
 let sequelize = null
 
 if (dbMode === 'replica') {
-    const dbConf = config[`${env}_${dbMode}`]
+    const dbConf = config[`${env}_${dbMode}`];
     sequelize = new Sequelize(dbConf.database, null, null, dbConf)
 } else {
     const dbConf = config[`${env}`]
