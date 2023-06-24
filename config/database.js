@@ -24,7 +24,13 @@ module.exports = {
         port: Number(process.env.DB_PORT),
         dialect: process.env.DB_DIALECT,
         connectionTimeout: 0,
-        logging: false
+        logging: false,
+        pool: {
+            max: 5,
+            min: 1,
+            idle: 10000,
+            acquire: 200000
+        },
     },
     development_replica: {
         database: process.env.DB_DATABASE,
@@ -35,6 +41,12 @@ module.exports = {
             write: { host: process.env.DB_HOST, username: process.env.DB_USERNAME, password: process.env.DB_PASSWORD }
         },
         connectionTimeout: 0,
-        logging: false
+        logging: false,
+        pool: {
+            max: 5,
+            min: 1,
+            idle: 10000,
+            acquire: 200000
+        },
     },
 }
