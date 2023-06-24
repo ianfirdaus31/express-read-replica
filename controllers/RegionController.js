@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const { Province } = require('../database/models');
 
 exports.regions = async (req, res) => {
@@ -6,7 +7,9 @@ exports.regions = async (req, res) => {
 
         const provs = await Province.findAll({
             where: {
-                id: provId
+                id: {
+                    [Op.in]: provId.split(',')
+                }
             },
             include: ['cities']
         });
