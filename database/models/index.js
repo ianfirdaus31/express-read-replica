@@ -7,6 +7,7 @@ const env = process.env.NODE_ENV || 'development'
 // eslint-disable-next-line import/no-dynamic-require
 const config = require('../../config/database')[env]
 const db = {}
+const dbMode = process.env.DB_MODE || 'replica';
 
 let sequelize = null
 
